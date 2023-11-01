@@ -16,7 +16,7 @@ class brand extends Controller
     {
         $page = $request->input('page') ?? 1;
         $orderby = $request->input('orderby') ?? '-discount';
-        $brand = $request->input('brand');
+        $brand = $request->input('url');
 
         if($orderby == '-discount') {
             $orderby = 'discount';

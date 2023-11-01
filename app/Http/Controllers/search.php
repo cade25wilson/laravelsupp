@@ -13,7 +13,7 @@ class search extends Controller
      */
     public function index(Request $request)
     {
-        $search = $request->input('searchterms') ?? '';
+        $search = $request->input('searchterm') ?? '';
         $page = $request->input('page') ?? 1;
         $orderby = $request->input('orderby') ?? '-discount';
 
@@ -77,7 +77,7 @@ class search extends Controller
         return response()->json([
             'totalItems' => $totalItems,
             'totalPages' => $totalPages,
-            'supplements' => $data
+            'items' => $data
         ]);
     }
 
