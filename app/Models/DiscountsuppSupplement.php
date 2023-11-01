@@ -45,7 +45,7 @@ class DiscountsuppSupplement extends Model
 		'category_id' => 'int',
 		'date' => 'datetime',
 		'discount' => 'float',
-		'active' => NULL,
+		'active' => 'bool',
 		'advertiser_id' => 'int',
 		'supplementlink_id' => 'int'
 	];
