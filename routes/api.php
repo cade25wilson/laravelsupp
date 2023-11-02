@@ -22,5 +22,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::apiResource('/supplement', index::class);
-route::apiResource('/search', search::class);
-route::apiResource('/brand', brand::class);
+Route::apiResource('/Brand', brand::class);
+Route::apiResource('/Search', search::class);
