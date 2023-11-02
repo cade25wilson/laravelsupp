@@ -1,9 +1,6 @@
 <?php
 namespace App\Services;
 
-use App\Models\DiscountsuppSupplement;
-use Illuminate\Http\Request;
-
 class SupplementService
 {
     public function setUrlParam($request)
