@@ -39,8 +39,8 @@ class brand extends Controller
         
         $brandid = $brandid ?? 0;
         
-        $supplements = DiscountsuppSupplement::select('discountsupp_supplement.*', 'discountsupp_brand.brand_name', 'discountsupp_brand.brand_url', 'discountsupp_brand.id as brand_id')
-            ->leftJoin('discountsupp_brand', 'discountsupp_brand.id', '=', 'discountsupp_supplement.brand_id')
+        $supplements = DiscountsuppSupplement::select('discountsupp_supplement.name', 'discountsupp_supplement.original_price', 'discountsupp_supplement.discount_price', 
+            'discountsupp_supplement.url', 'discountsupp_supplement.image', 'discountsupp_supplement.discount','discountsupp_brand.brand_name', 'discountsupp_brand.brand_url')            ->leftJoin('discountsupp_brand', 'discountsupp_brand.id', '=', 'discountsupp_supplement.brand_id')
             ->where('discountsupp_supplement.date', '=', $date)
             ->where('discountsupp_supplement.brand_id', '=', $brandid->id)
             ->orderBy('discountsupp_supplement.'.$orderby, $order)
@@ -56,27 +56,19 @@ class brand extends Controller
         $totalPages = ceil($totalItems / $limit);
 
         $data = [];
-        foreach($supplements as $supplement) {
-            $data[] = [
+        foreach ($supplements as $supplement) {
+            $data[] = [    
                 'supplement' => [
-                    'id' => $supplement->id,
                     'name' => $supplement->name,
                     'originalPrice' => $supplement->original_price,
                     'discountPrice' => $supplement->discount_price,
                     'url' => $supplement->url,
-                    'brandId' => $supplement->brand_id,
                     'image' => $supplement->image,
-                    'categoryId' => $supplement->category_id,
-                    'date' => $supplement->date,
                     'discount' => $supplement->discount,
-                    'active' => $supplement->active,
-                    'advertiserId' => $supplement->advertiser_id,
-                    'supplementlinkId' => $supplement->supplementlink_id,
-                    'brand' => [
-                        'id' => $supplement->brand_id,
-                        'name' => $supplement->brand_name,
-                        'url' => $supplement->brand_url
-                    ]
+                ],
+                'brand' => [
+                    'brandName' => $supplement->brand_name,
+                    'brandUrl' => $supplement->brand_url,
                 ]
             ];
         }
@@ -87,53 +79,5 @@ class brand extends Controller
             'items' => $data,
         ]);
 
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
     }
 }

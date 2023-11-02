@@ -30,7 +30,8 @@ class index extends Controller
         $limit = 12;
         $date = '2023-10-22';
         $offset = ($page - 1) * $limit;
-        $supplements = DiscountsuppSupplement::select('discountsupp_supplement.*', 'discountsupp_brand.brand_name', 'discountsupp_brand.brand_url', 'discountsupp_brand.id as brand_id')
+        $supplements = DiscountsuppSupplement::select('discountsupp_supplement.name', 'discountsupp_supplement.original_price', 'discountsupp_supplement.discount_price', 
+            'discountsupp_supplement.url', 'discountsupp_supplement.image', 'discountsupp_supplement.discount','discountsupp_brand.brand_name', 'discountsupp_brand.brand_url')
             ->leftJoin('discountsupp_brand', 'discountsupp_brand.id', '=', 'discountsupp_supplement.brand_id')
             ->where('discountsupp_supplement.date', '=', $date)
             ->orderBy('discountsupp_supplement.'.$orderby, $order)
@@ -43,29 +44,19 @@ class index extends Controller
             ->count();
 
         $totalPages = ceil($totalItems / $limit);
+        
         $data = [];
         foreach ($supplements as $supplement) {
             $data[] = [    
                 'supplement' => [
-                    'id' => $supplement->id,
                     'name' => $supplement->name,
                     'originalPrice' => $supplement->original_price,
                     'discountPrice' => $supplement->discount_price,
                     'url' => $supplement->url,
-                    'brandId' => $supplement->brand_id,
                     'image' => $supplement->image,
-                    'categoryId' => $supplement->category_id,
-                    'date' => $supplement->date,
                     'discount' => $supplement->discount,
-                    'active' => $supplement->active,
-                    'advertiserId' => $supplement->advertiser_id,
-                    'supplementlinkId' => $supplement->supplementlink_id,
-                    'advertiser' => $supplement->advertiser_id,
-                    'category' => $supplement->category_id,
-                    'supplementlink' => $supplement->supplementlink_id,
                 ],
                 'brand' => [
-                    'id' => $supplement->brand_id,
                     'brandName' => $supplement->brand_name,
                     'brandUrl' => $supplement->brand_url,
                 ]
